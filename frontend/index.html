@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestión de Adquisiciones - ADRES</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-top">
+      <div class="logo-mark">
+        <div class="logo-square"></div>
+        <div class="logo-text">
+          <span class="logo-title">ADRES</span>
+          <span class="logo-subtitle">Gestión de Adquisiciones</span>
+        </div>
+      </div>
+      <div class="header-meta">
+        <span class="meta-label">Ambiente de prueba</span>
+      </div>
+    </div>
+    <div class="header-bottom">
+      <h1>Registro y Control de Adquisiciones</h1>
+      <p>Módulo para la administración de bienes y servicios, incluyendo trazabilidad de cambios.</p>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- Panel izquierdo: formulario -->
+    <section class="card form-card">
+      <div class="card-header">
+        <h2>Datos de la adquisición</h2>
+        <span class="card-tag">Formulario</span>
+      </div>
+      <form id="acquisition-form" class="card-body">
+        <input type="hidden" id="acq-id" />
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="presupuesto">Presupuesto (COP)</label>
+            <input type="number" id="presupuesto" required min="0">
+          </div>
+
+          <div class="form-group">
+            <label for="unidad">Unidad Administrativa</label>
+            <select id="unidad" required>
+              <option value="">Seleccione...</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="tipo">Tipo de Bien o Servicio</label>
+            <select id="tipo" required>
+              <option value="">Seleccione...</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="cantidad">Cantidad</label>
+            <input type="number" id="cantidad" required min="1">
+          </div>
+          <div class="form-group">
+            <label for="valorUnitario">Valor Unitario (COP)</label>
+            <input type="number" id="valorUnitario" required min="0">
+          </div>
+          <div class="form-group">
+            <label for="valorTotal">Valor Total (COP)</label>
+            <input type="number" id="valorTotal" readonly>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="fecha">Fecha de Adquisición</label>
+            <input type="date" id="fecha" required>
+          </div>
+
+          <div class="form-group">
+            <label for="proveedor">Proveedor</label>
+            <input type="text" id="proveedor" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="documentacion">Documentación de Soporte</label>
+          <textarea id="documentacion" rows="3" placeholder="Órdenes de compra, contratos, facturas, etc."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="btn-save">Guardar</button>
+          <button type="button" class="btn btn-secondary" id="btn-clear">Limpiar</button>
+        </div>
+        <p class="form-hint">La aplicación registra automáticamente un historial por cada creación, modificación y cambio de estado.</p>
+      </form>
+    </section>
+
+    <!-- Panel derecho: filtros y listado -->
+    <section class="card list-card">
+      <div class="card-header">
+        <h2>Consulta de adquisiciones</h2>
+        <span class="card-tag accent">Listado</span>
+      </div>
+      <div class="card-body">
+        <div class="filters">
+          <h3>Filtros de consulta</h3>
+          <div class="filters-grid">
+            <div class="form-group">
+              <label for="filter-unidad">Unidad</label>
+              <input type="text" id="filter-unidad" placeholder="Ej: Gestión Financiera">
+            </div>
+            <div class="form-group">
+              <label for="filter-tipo">Tipo</label>
+              <input type="text" id="filter-tipo" placeholder="Ej: Servicios">
+            </div>
+            <div class="form-group">
+              <label for="filter-proveedor">Proveedor</label>
+              <input type="text" id="filter-proveedor">
+            </div>
+            <div class="form-group">
+              <label for="filter-estado">Estado</label>
+              <select id="filter-estado">
+                <option value="">Todos</option>
+                <option value="ACTIVO">Activos</option>
+                <option value="INACTIVO">Inactivos</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Fecha desde</label>
+              <input type="date" id="filter-fecha-desde">
+            </div>
+            <div class="form-group">
+              <label>Fecha hasta</label>
+              <input type="date" id="filter-fecha-hasta">
+            </div>
+          </div>
+          <div class="filters-actions">
+            <button class="btn btn-secondary" id="btn-apply-filters">Aplicar filtros</button>
+            <button class="btn btn-ghost" id="btn-clear-filters">Limpiar</button>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <div class="table-header">
+            <h3>Listado de Adquisiciones</h3>
+            <span class="table-caption">Visualización consolidada de registros</span>
+          </div>
+          <table id="acquisitions-table">
+            <thead>
+              <tr>
+                <th>Unidad</th>
+                <th>Tipo</th>
+                <th>Proveedor</th>
+                <th>Fecha</th>
+                <th class="text-right">Valor Total</th>
+                <th>Estado</th>
+                <th class="col-actions">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- filas generadas por JS -->
+            </tbody>
+          </table>
+          <p id="empty-message" class="empty-message">No hay adquisiciones registradas para los criterios seleccionados.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal para historial -->
+  <div class="modal-backdrop" id="history-modal-backdrop">
+    <div class="modal">
+      <header class="modal-header">
+        <div>
+          <h3>Historial de cambios</h3>
+          <p class="modal-subtitle">Detalle cronológico de las operaciones realizadas sobre la adquisición.</p>
+        </div>
+        <button class="btn-icon" id="btn-close-history" aria-label="Cerrar historial">×</button>
+      </header>
+      <div class="modal-body">
+        <ul id="history-list">
+          <!-- items de historial -->
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>Prueba técnica ADRES – Gestión de Adquisiciones</span>
+      <span class="footer-divider">|</span>
+      <span>Uso interno / demostrativo</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+{
+  "acquisitions": [
+    {
+      "id": 1,
+      "presupuesto": 100000,
+      "unidad": "Dirección General",
+      "tipo": "Medicamentos",
+      "cantidad": 1,
+      "valorUnitario": 2,
+      "valorTotal": 2,
+      "fechaAdquisicion": "2025-11-30",
+      "proveedor": "Juan Carlos Albornoz Barrios",
+      "documentacion": "OC2348079",
+      "activo": true
+    },
+    {
+      "id": 2,
+      "presupuesto": 100000,
+      "unidad": "Oficina Asesora Jurídica",
+      "tipo": "Medicamentos",
+      "cantidad": 2,
+      "valorUnitario": 10000,
+      "valorTotal": 20000,
+      "fechaAdquisicion": "2025-12-02",
+      "proveedor": "EPS COLSA",
+      "documentacion": "ORDEN DE COMPRA ES PARA EJECUCIÓN DE 2026",
+      "activo": true
+    }
+  ],
+  "histories": [
+    {
+      "id": 1,
+      "acquisitionId": 1,
+      "action": "CREADO",
+      "summary": "Registro creado con proveedor Juan Carlos Albornoz Barrios",
+      "timestamp": "2025-11-30T21:37:38.093Z"
+    },
+    {
+      "id": 2,
+      "acquisitionId": 2,
+      "action": "CREADO",
+      "summary": "Registro creado con proveedor EPS COLSA",
+      "timestamp": "2025-11-30T21:42:49.521Z"
+    }
+  ],
+  "catalogs": {
+    "unidadesAdministrativas": [
+      "Dirección General",
+      "Subdirección de Gestión Financiera",
+      "Oficina Asesora Jurídica",
+      "Oficina de Tecnologías de la Información",
+      "Subdirección de Aseguramiento",
+      "Subdirección de Operación de Reconocimientos",
+      "Oficina de Planeación",
+      "Oficina de Control Interno"
+    ],
+    "tiposBienServicio": [
+      "Medicamentos",
+      "Dispositivos médicos",
+      "Equipos biomédicos",
+      "Servicios de tecnología",
+      "Servicios de consultoría",
+      "Servicios de mantenimiento",
+      "Papelería y suministros",
+      "Servicios logísticos",
+      "Licencias de software",
+      "Servicios de capacitación"
+    ]
+  }
+}
