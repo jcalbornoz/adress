@@ -32,7 +32,7 @@ backend/
 
 ## Instrucciones de ejecución
 
-1. Descomprimir el archivo `.zip`.
+1. decargar el  proyecto del git de forma local.
 2. Instalar dependencias del backend:
 
    ```bash
